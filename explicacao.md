@@ -77,7 +77,7 @@ mysql> SELECT * FROM orders;
 
 mysql> exit;
 
-- Verificação produtos pelo Redis: 
+- Verificação dos produtos em cache pelo Redis: 
 
 PS C:\Users\MATHEUSSANTOSDEOLIVE\downloads\Prova-DevOps> docker ps --filter "name=redis" --format "{{.ID}}"
 e71ec5d02001
