@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  products:
+    build: ./products
+    ports:
+      - "3001:3001"
+    networks:
+      - prova-devops
+
+  orders:
+    build: ./orders
+    depends_on:
+      - products
+      - db
+      - redis
+    ports:
+      - "3002:3002"
+    networks:
+      - prova-devops
+
+  payments:
+    build: ./payments
+    depends_on:
+      - orders
+    ports:
+      - "3003:3003"
+    networks:
+      - prova-devops
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3306:3306"
+    networks:
+      - prova-devops
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - prova-devops
+
+networks:
+  prova-devops:
+    driver: bridge
